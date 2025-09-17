@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HU JIALE - Personal Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* 左侧照片区域 */
+        .photo-side {
+            width: 40%;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+        }
+        
+        .photo-placeholder {
+            width: 300px;
+            height: 400px;
+            background: linear-gradient(135deg, #2c3e50, #1a1a1a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 1.2rem;
+            border: 1px solid #333;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* 右侧内容区域 */
+        .content-side {
+            width: 60%;
+            margin-left: 40%;
+            padding: 4rem;
+        }
+        
+        /* 个人介绍部分 */
+        .intro-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 2rem;
+        }
+        
+        .name {
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            line-height: 1.1;
+        }
+        
+        .title {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: #ccc;
+            line-height: 1.4;
+            max-width: 80%;
+        }
+        
+        /* 研究兴趣部分 */
+        .research-section {
+            min-height: 100vh;
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #ff3366;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+        }
+        
+        .project-card {
+            background-color: #151515;
+            padding: 2rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #252525;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        
+        .project-desc {
+            font-size: 1rem;
+            color: #aaa;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .project-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .project-img {
+            height: 150px;
+            background: linear-gradient(135deg, #2c3e50, #1a1a1a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        /* 导航 */
+        .nav {
+            position: fixed;
+            right: 3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #444;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .nav-item.active {
+            background-color: #fff;
+            transform: scale(1.3);
+        }
+        
+        /* 页脚 */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #252525;
+            margin-top: 4rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: #666;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: #fff;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .photo-side {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 2rem;
+            }
+            
+            .photo-placeholder {
+                width: 250px;
+                height: 300px;
+            }
+            
+            .content-side {
+                width: 100%;
+                margin-left: 0;
+                padding: 2rem;
+            }
+            
+            .name {
+                font-size: 3.5rem;
+            }
+            
+            .title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .name {
+                font-size: 2.8rem;
+            }
+            
+            .nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧照片区域 -->
+        <div class="photo-side">
+            <div class="photo-placeholder">
+                <span>HU JIALE<br>Personal Photo</span>
+            </div>
+        </div>
+        
+        <!-- 右侧内容区域 -->
+        <div class="content-side">
+            <!-- 个人介绍部分 -->
+            <section class="intro-section">
+                <h1 class="name">HU JIALE</h1>
+                <p class="title">I'm Hu Jiale. You can call me Jayla. I'm currently an MPhil at Hong Kong University of Science and Technology (Guangzhou), majoring in Computational Media and Art.</p>
+                
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="far fa-envelope"></i></a>
+                </div>
+            </section>
+            
+            <!-- 研究兴趣部分 -->
+            <section class="research-section">
+                <h2 class="section-title">Research Interests</h2>
+                
+                <div class="projects-grid">
+                    <!-- 项目1 -->
+                    <div class="project-card">
+                        <h3 class="project-title">Interactive Media Art</h3>
+                        <p class="project-desc">Exploring the intersection of technology and human interaction through immersive digital installations that respond to audience participation in real-time.</p>
+                        <div class="project-images">
+                            <div class="project-img">Project Image 1</div>
+                            <div class="project-img">Project Image 2</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 项目2 -->
+                    <div class="project-card">
+                        <h3 class="project-title">Generative Art Algorithms</h3>
+                        <p class="project-desc">Developing computational systems that create unique visual artworks based on algorithmic processes and machine learning techniques.</p>
+                        <div class="project-images">
+                            <div class="project-img">Project Image 1</div>
+                            <div class="project-img">Project Image 2</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 项目3 -->
+                    <div class="project-card">
+                        <h3 class="project-title">Virtual Reality Narratives</h3>
+                        <p class="project-desc">Creating immersive storytelling experiences in VR environments that blend traditional narrative structures with interactive elements.</p>
+                        <div class="project-images">
+                            <div class="project-img">Project Image 1</div>
+                            <div class="project-img">Project Image 2</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 项目4 -->
+                    <div class="project-card">
+                        <h3 class="project-title">Data Visualization Art</h3>
+                        <p class="project-desc">Transforming complex datasets into compelling visual representations that communicate information while maintaining aesthetic appeal.</p>
+                        <div class="project-images">
+                            <div class="project-img">Project Image 1</div>
+                            <div class="project-img">Project Image 2</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <footer>
+                <p>© 2023 HU JIALE. All Rights Reserved.</p>
+                <p>Hong Kong University of Science and Technology (Guangzhou)</p>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- 导航点 -->
+    <div class="nav">
+        <div class="nav-item active" data-section="intro"></div>
+        <div class="nav-item" data-section="research"></div>
+    </div>
+    
+    <script>
+        // 简单的滚动检测和导航功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            // 更新激活的导航点
+            function updateActiveNav() {
+                let currentSection = '';
+                const scrollPosition = window.scrollY + 200;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        currentSection = section.classList[0];
+                    }
+                });
+                
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-section') === currentSection) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+            
+            // 导航点击事件
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetSection = this.getAttribute('data-section');
+                    const targetElement = document.querySelector(`.${targetSection}-section`);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // 监听滚动事件
+            window.addEventListener('scroll', updateActiveNav);
+            updateActiveNav(); // 初始化
+        });
+    </script>
+</body>
+</html>
